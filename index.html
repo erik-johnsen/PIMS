@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="./style/style.css">
+	<link rel="stylesheet" href="./style/reset.css">
+	<script src="./js/app.js" defer></script>
+</head>
+<body>
+	<div class="window-container">
+
+		<div class="page landing-page">
+			<div class="title-content">
+				<h1>Welcome to PIMS</h1>
+				<h3>What do you want to do?</h3>
+			</div>
+			<div class="landing-page-buttons">
+				<button class="nav-button_add-storage">Add To Storage</button>
+				<button class="nav-button_show-storage">Edit or Show Storage</button>
+			</div>
+		</div>
+
+		<div class="page add-storage">
+
+			<div class="form-container"></div>
+			<div class="show-id"></div>
+
+			<label for="name">Name</label>
+			<input class="storage-input_name" name="name" type="text">
+
+			<label for="manufacturer">Manufacturer</label>
+			<input class="storage-input_manufacturer" name="manufacturer" type="text">
+
+			<label for="expiration">Expiration</label>
+			<input class="storage-input_expiration" name="expiration"type="text">
+
+			<label for="location"></label>
+			<select name="location" id="">
+				<option value="oslo">Oslo</option>
+				<option value="stockholm">Stockholm</option>
+				<option value="stockholm">Copenhagen</option>
+				<option value="helsinki">Helsinki</option>
+			</select>
+
+			<label for="amount-to-add">Amount To Add</label>
+			<input class="storage-input_amount-to-add" name="amount-to-add" type="text">
+
+			<div class="show-quantity"></div>
+
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
