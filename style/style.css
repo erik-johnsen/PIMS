@@ -30,10 +30,29 @@ body {
 .landing-page button:hover{
 	transform: scale(101%);
 }
+
+.add-storage {
+	display: none;
+}
 .form-container {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
+
+
+#table-display th {
+	padding: 1rem 4rem;
+	color: white;
+	background-color: #6E6A6F;
+	text-align: center;
+}
+
+#table-display td {
+	text-align: center;
+}
+
+
+/* LOGIC */
 
 .visible {
 	display: flex;
