@@ -30,6 +30,10 @@ body {
 .landing-page button:hover{
 	transform: scale(101%);
 }
+.form-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
 
 .visible {
 	display: flex;
