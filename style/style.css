@@ -5,6 +5,7 @@ body {
 }
 
 .window-container {
+	position: relative;
 	width: fit-content;
 	height: fit-content;
 	display: flex;
@@ -64,6 +65,19 @@ body {
 
 }
 
+.open-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: fit-content;
+	height: fit-content;
+	padding: 0.5rem;
+	border-radius: 0.1rem;
+	background-color: #6E6A6F;
+	color: white;
+	transition: all 200ms;
+}
+
 .close-button {
 	position: absolute;
 	left: 2rem;
@@ -78,7 +92,7 @@ body {
 
 }
 
-.close-button:hover {
+.close-button:hover, .open-button:hover {
 	background-color: #474548;
 	transition: all 200ms;
 }
