@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
 const displayData = (data) => {
 	if(data) {
-		displayTable.textContent = ""
+		// displayTable.textContent = ""
 
 		const trContainer = document.createElement('tr')
 		
