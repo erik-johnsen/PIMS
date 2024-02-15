@@ -17,51 +17,66 @@
 		
 
 		<div class="page add-storage">
-			<h2>Fill in the form</h2>
+			<button class="close-button">X</button>
 
-			<form class="form-container">
-				<div>
-					<div>ID</div>
-					<div id="form_show-id">00</div>
-				</div>
-				
-				<div>
-					<label for="form_name">Name</label>
-					<input id="form_name" type="text" required>
-				</div>
+			<div>
+				<h2>Fill in the form</h2>
 
-				<div>
-					<label for="form_manufacturer">Manufacturer</label>
-					<input id="form_manufacturer" type="text" required>
-				</div>
+				<form class="form-container">
+					<div>
+						<div>ID</div>
+						<div id="form_show-id">00</div>
+					</div>
+					
+					<div>
+						<label for="form_name">Name</label>
+						<input id="form_name" type="text" required>
+					</div>
 
-				<div>
-					<label for="form_expiration">Expiration</label>
-					<input id="form_expiration" type="number" required>
-				</div>
+					<div>
+						<label for="form_manufacturer">Manufacturer</label>
+						<input id="form_manufacturer" type="text" required>
+					</div>
 
-				<div>
-					<label for="form_location">Location</label>
-					<select id="form_location">
-						<option selected disabled>Select a location</option>
-						<option value="Oslo">Oslo</option>
-						<option value="Stockholm">Stockholm</option>
-						<option value="Copenhagen">Copenhagen</option>
-						<option value="Helsinki">Helsinki</option>
-					</select>
-				</div>
+					<div>
+						<div>Total amount in stock</div>
+						<div id="form_show-quantity">00</div>
+					</div>	
 
-				<div>
-					<label for="form_amount-to-add">Amount To Add</label>
-					<input id="form_amount-to-add" type="text" required>
-				</div>
+			
 
-				<div>
-					<div>Total amount in stock</div>
-					<div id="form_show-quantity">00</div>
-				</div>				
-			</form>
-			<button class="submit">Add Item(s)</button>
+					<div>
+						<label for="form_location">Location</label>
+						<select id="form_location">
+							<option selected disabled>Select a location</option>
+							<option value="Oslo">Oslo</option>
+							<option value="Stockholm">Stockholm</option>
+							<option value="Copenhagen">Copenhagen</option>
+							<option value="Helsinki">Helsinki</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="form_amount-to-add">Amount To Add</label>
+						<input id="form_amount-to-add" type="text" required>
+					</div>
+
+					<div>
+						<label for="form_expiration">Expiration</label>
+						<input id="form_expiration" type="number" required>
+					</div>
+
+					
+
+					<div>
+						<div></div>
+						<button class="submit-button">Add Item(s)</button>
+					</div>
+						
+				</form>
+
+			</div>
+			
 		</div>
 		
 		<div class="page display">
