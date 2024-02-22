@@ -2,12 +2,18 @@
 // Form DOM
 const displayTable = document.getElementById('table-display')
 const submit = document.querySelector('.submit-button')
+
 const nameInput = document.getElementById('form_name')
 const manufacturerInput = document.getElementById('form_manufacturer')
 const expirationInput = document.getElementById('form_expiration')
 const locationInput = document.getElementById('form_location')
 const quantityInput = document.getElementById('form_amount-to-add')
 const displayID = document.getElementById('form_show-id')
+
+const typeSelect = document.getElementById('form_type')
+const typeInput = document.getElementById('form_dosage')
+const typeInputLabel = document.querySelector('label[for="form_dosage"]')
+
 const form = document.querySelector('.form-container')
 
 // Form Logic DOM
@@ -40,18 +46,20 @@ openButton.addEventListener('click', () => {
 
 
 class Medicine {
-	constructor(id, name, manufacturer, expiration, location, quantity) {
+	constructor(id, name, manufacturer, expiration, location, typeInput, typeSelect, quantity) {
 		this.id = id,
 		this.name = name,
 		this.manufacturer = manufacturer,
 		this.expiration = expiration,
 		this.location = location,
+		this.typeSelect = typeSelect,
+		this.typeInput = typeInput,
 		this.quantity = quantity
 	}
 
 	static addMedicine() {
 		const newID = Medicine.createID()
-		const newMedicine = new Medicine (newID, nameInput.value, manufacturerInput.value, expirationInput.value, locationInput.value, quantityInput.value)
+		const newMedicine = new Medicine (newID, nameInput.value, manufacturerInput.value, expirationInput.value, locationInput.value, typeInput.value, typeSelect.value, quantityInput.value)
 
 		//pushes the new ID to a different array in local storage so i can make sure that no identical IDs can exist
 		allRandomIDs.push(newID)
@@ -72,8 +80,26 @@ class Medicine {
 		return newID
 
 	}
+
+	static handleQuantity() {
+
+	}
 }
 
+
+class Tablets extends Medicine {
+	constructor(id, name, manufacturer, expiration, location, quantity, dosageAmount) {
+		super(id, name, manufacturer, expiration, location, quantity)
+		this.dosageAmount = dosageAmount
+	}
+}
+
+class Syrup extends Medicine {
+	constructor(id, name, manufacturer, expiration, location, quantity, dosageml) {
+		super(id, name, manufacturer, expiration, location, quantity)
+		this.dosageml = dosageml
+	}
+}
 
 
 // Displays the data stored when website is loaded
@@ -89,23 +115,30 @@ class UI {
 			allDataArray.forEach(element => {
 				const trContainer = document.createElement('tr')
 				
-				const xContainer = document.createElement('td')
+				const xContainer = document.createElement('button')
 				const idContainer = document.createElement('td')
 				const nameContainer = document.createElement('td')
 				const manufacturerContainer = document.createElement('td')
 				const expirationContainer = document.createElement('td')
 				const locationContainer = document.createElement('td')
+				const dosageContainer = document.createElement('td')
 				const quantityContainer = document.createElement('td')
 			
 				tbody.appendChild(trContainer)
-				trContainer.append(xContainer, idContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, quantityContainer)
+				trContainer.append(xContainer, idContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, dosageContainer, quantityContainer)
 	
 				xContainer.textContent = "X"
+				xContainer.classList.add('form_delete-button')
 				idContainer.textContent = element.id
 				nameContainer.textContent = element.name
 				manufacturerContainer.textContent = element.manufacturer
 				expirationContainer.textContent = element.expiration
 				locationContainer.textContent = element.location
+				if(element.typeSelect === "tablet") {
+					dosageContainer.textContent = `${element.typeInput} pill`
+				} else {
+					dosageContainer.textContent = `${element.typeInput} ml`
+				}
 				quantityContainer.textContent = element.quantity
 			})
 		}
@@ -126,6 +159,17 @@ submit.addEventListener('click', (e)=> {
 
 		form.reset()
 		Medicine.createID()
+		typeInputLabel.textContent = "Dosage"
+		typeInput.setAttribute("disabled", "")
 	}
 	
+})
+
+typeSelect.addEventListener("change", ()=> {
+	typeInput.removeAttribute("disabled")
+	if(typeSelect.value === "tablet") {
+		typeInputLabel.textContent = "Dosage in amount"
+	} else {
+		typeInputLabel.textContent = "Dosage in ml"
+	}
 })
