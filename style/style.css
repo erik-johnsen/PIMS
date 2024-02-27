@@ -116,6 +116,11 @@ select {
 	width: 10rem;
 }
 
+.update-prompt {
+	position: absolute;
+	top: 5rem;
+	right: 20rem;
+}
 /* LOGIC */
 
 .visible {
