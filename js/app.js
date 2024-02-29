@@ -99,10 +99,14 @@ class Medicine {
 			localStorage.setItem("medicine", JSON.stringify(allDataArray))
 		}
 	}
-	// TODO
-	static deleteMedicine(event) {
-		const parentElement = event.target.parentElement;  
-		parentElement.remove()
+	// Deletes the item from localStorage
+	static deleteMedicine(id, array) {
+		const index = array.findIndex((member)=> member.id.toString() === id.toString())
+
+		if(index !== -1){
+			array.splice(index, 1)
+			localStorage.setItem("medicine", JSON.stringify(allDataArray))
+		}
 	}
 }
 
@@ -162,6 +166,16 @@ class UI {
 					dosageContainer.textContent = `${element.typeInput} ml`
 				}
 				quantityContainer.textContent = element.quantity
+
+				trContainer.dataset.id = element.id;
+
+				xButton.addEventListener('click', (e)=> {
+					const listID = 	e.currentTarget.parentElement.dataset.id;
+					Medicine.deleteMedicine(listID, allDataArray)
+
+					UI.displayData(allDataArray)
+					
+				})
 			})
 		}
 	}
@@ -178,35 +192,57 @@ class Form {
 		updatePrompt.textContent = ""
 
 	}
+	// check if every field is filled out and then run addMedicine, adds it to storage and runs displayData 
+	static validateForm() {
+
+		// Checks if the item name user is typing already exist in the system
+		if(submit.textContent !== "Update Item") {
+			// const isoRegex = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+			// If name doesnt match then check if every field is filled out
+			if(!nameInput.value.trim() || !manufacturerInput.value.trim() || !expirationInput.value.trim() || locationInput.value === "Select a location" || !typeInput.value.trim()) {
+				console.log("fill it out!");
+			} else {
+				// Here we add the new item to the allDataArray and update the localStorage with it
+				allDataArray.push(Medicine.addMedicine())
+				localStorage.setItem("medicine", JSON.stringify(allDataArray))
+				UI.displayData(allDataArray)
+		
+				Form.resetForm()
+				
+			}
+			} else {
+			// If the name matches then update the item with the new quantity
+			Medicine.handleQuantity()
+			UI.displayData(allDataArray)
+			Form.resetForm()
+		}
+	}
+
+	static numberInput(e) {
+		setTimeout(() => {
+			if(e.key !== 'Backspace'){
+				if(expirationInput.value.length === 5 || expirationInput.value.length === 8) {
+					expirationInput.value = expirationInput.value.slice(0, -1) + "-" + expirationInput.value.slice(-1)
+				}
+			} else if((e.key === 'Backspace') && (expirationInput.value.length === 5 || expirationInput.value.length === 8)) {
+				
+				expirationInput.value = expirationInput.value.slice(0, -1)
+			}
+			
+		},0)
+	}
 }
 
 
-// Eventlistener to check if every field is filled out and then run addMedicine, adds it to storage and runs displayData 
+expirationInput.addEventListener('keydown', (e)=> {
+	Form.numberInput(e)
+})
+
+// Submit button that triggers validate form, and then continues to addMedicine and displayData
 submit.addEventListener('click', (e)=> {
 	e.preventDefault()
-
-	// Checks if the item name user is trying to add already exist in the system
-	if(submit.textContent !== "Update Item") {
-		// If name doesnt match then check if every field is filled out
-		if(!nameInput.value.trim() || !manufacturerInput.value.trim() || !expirationInput.value.trim() || locationInput.value === "Select a location" || !typeInput.value.trim()) {
-			console.log("fill it out!");
-		} else {
-			// Here we add the new item to the allDataArray and update the localStorage with it
-			allDataArray.push(Medicine.addMedicine())
-			localStorage.setItem("medicine", JSON.stringify(allDataArray))
-			UI.displayData(allDataArray)
-	
-			Form.resetForm()
-			
-		}
-	} else {
-		// If the name matches then update the item with the new quantity
-		Medicine.handleQuantity()
-		UI.displayData(allDataArray)
-		Form.resetForm()
-	}
-	
-	
+	Form.validateForm()
 })
 
 // Eventlistener that handles if the label text content of the dosage inout depending on what the user chooses
@@ -217,15 +253,6 @@ typeSelect.addEventListener("change", ()=> {
 	} else {
 		typeInputLabel.textContent = "Dosage in ml"
 	}
-})
-
-
-deleteButtons.forEach(button => {
-	console.log("test");
-	button.addEventListener('click', (event)=> {
-		Medicine.deleteMedicine(event)
-		console.log("hei");
-	})
 })
 
 // If the user types in a name that exist then change the ID to the existing one, change the total amount to the current and change the button name to "Update Item"
@@ -249,5 +276,3 @@ nameInput.addEventListener("change", ()=> {
 		}
 	})
 })
-
-console.log(allDataArray);
