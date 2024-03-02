@@ -46,7 +46,6 @@ let itemQuantityToUpdate = ""
 
 
 // the medicine class
-
 class Medicine {
 	constructor(id, name, manufacturer, expiration, location, typeInput, typeSelect, quantity) {
 		this.id = id,
@@ -60,7 +59,7 @@ class Medicine {
 	}
 
 	static addMedicine() {
-		const newID = Medicine.createID()
+		const newID = this.createID()
 		const newMedicine = new Medicine (newID, nameInput.value, manufacturerInput.value, expirationInput.value, locationInput.value, typeInput.value, typeSelect.value, quantityInput.value)
 
 		//pushes the new ID to a different array in local storage so i can make sure that no identical IDs can exist
@@ -75,7 +74,7 @@ class Medicine {
 	static createID() {
 		const newID = Math.floor(Math.random() * 1000000000);
 		if(allRandomIDs.includes(newID)) {
-			Medicine.createID()
+			this.createID()
 			return
 		}
 
@@ -84,10 +83,15 @@ class Medicine {
 
 	}
 	// Updates the quantity in localStorage 
-	static handleQuantity() {
+	static updateMedicine() {
 		const itemToUpdate = allDataArray.find(item => item.name === itemNameToUpdate)
 		if(itemToUpdate) {
 			itemToUpdate.quantity = (Number(itemQuantityToUpdate || 0)) + (Number(quantityInput.value) || 0)
+			itemToUpdate.manufacturer = manufacturerInput.value
+			itemToUpdate.location = locationInput.value
+			itemToUpdate.expiration = expirationInput.value
+			itemToUpdate.typeSelect = typeSelect.value
+			itemToUpdate.typeInput = typeInput.value
 
 			localStorage.setItem("medicine", JSON.stringify(allDataArray))
 		}
@@ -103,8 +107,8 @@ class Medicine {
 	}
 }
 
-// Inheritence classes
 
+// Inheritence classes
 class Tablets extends Medicine {
 	constructor(id, name, manufacturer, expiration, location, quantity, dosageAmount) {
 		super(id, name, manufacturer, expiration, location, quantity)
@@ -120,12 +124,7 @@ class Syrup extends Medicine {
 }
 
 
-// Displays the data stored when website is loaded
-window.addEventListener('DOMContentLoaded', ()=> {
-	UI.displayData(allDataArray)
-	
-})
-
+// UI class to handle displaying the data
 class UI {
 	static displayData = (data) => {
 		if(data) {
@@ -168,13 +167,14 @@ class UI {
 					const listID = 	e.currentTarget.parentElement.parentElement.dataset.id;
 					Medicine.deleteMedicine(listID, allDataArray)
 
-					UI.displayData(allDataArray)
+					this.displayData(allDataArray)
 					
 				})
 			})
 		}
 	}
 }
+
 
 class Form {
 	static resetForm() {
@@ -196,15 +196,7 @@ class Form {
 
 			// If name doesnt match then check if every field is filled out
 			if(!nameInput.value.trim() || !manufacturerInput.value.trim() || !expirationInput.value.trim() || locationInput.value === "Select a location" || !typeInput.value.trim()) {
-				
-				const errorMessage = document.createElement('p')
-				errorMessage.classList.add('form-error-message')
-				errorMessage.textContent = "Every field must be filled out!"
-				viewPort.appendChild(errorMessage)
-
-				setTimeout(()=> {
-					errorMessage.remove()
-				}, 2000)
+				this.handlePopupMessage('error')
 				
 				// Gives a visual clue to the user on what field is not filled out 
 				formInputs.forEach(input => {
@@ -215,31 +207,45 @@ class Form {
 					}
 				})
 			} else {
-
-				const confirmationMessage = document.createElement('p')
-				confirmationMessage.classList.add('form-confirmation-message')
-				confirmationMessage.textContent = "Item added successfully!"
-				viewPort.appendChild(confirmationMessage)
-
-				setTimeout(()=> {
-					confirmationMessage.remove()
-				}, 2000)
+				this.handlePopupMessage('confirmation')
+				
 
 				// Here we add the new item to the allDataArray and update the localStorage with it
 				allDataArray.push(Medicine.addMedicine())
 				localStorage.setItem("medicine", JSON.stringify(allDataArray))
 				UI.displayData(allDataArray)
 		
-				Form.resetForm()
+				this.resetForm()
 			}
 
 		} else {
 		// If the name matches then update the item with the new quantity
-		Medicine.handleQuantity()
+		Medicine.updateMedicine()
 		UI.displayData(allDataArray)
-		Form.resetForm()
+		this.resetForm()
 		}
-		
+	}
+
+	static handlePopupMessage(type) {
+		if(type === 'error') {
+			const errorMessage = document.createElement('p')
+			errorMessage.className = 'form-error-message ' + 'fade-in-out'
+			errorMessage.textContent = "Every field must be filled out!"
+			viewPort.appendChild(errorMessage)
+
+			setTimeout(()=> {
+				errorMessage.remove()
+			}, 3000)
+		} else {
+			const confirmationMessage = document.createElement('p')
+				confirmationMessage.className = 'form-confirmation-message ' + 'fade-in-out'
+				confirmationMessage.textContent = "Item added successfully!"
+				viewPort.appendChild(confirmationMessage)
+
+				setTimeout(()=> {
+					confirmationMessage.remove()
+				}, 3000)
+		}
 	}
 
 	static numberInput(e) {
@@ -257,6 +263,12 @@ class Form {
 	}
 }
 
+
+// Displays the data stored when website is loaded
+window.addEventListener('DOMContentLoaded', ()=> {
+	UI.displayData(allDataArray)
+	
+})
 
 expirationInput.addEventListener('keydown', (e)=> {
 	Form.numberInput(e)
@@ -281,12 +293,21 @@ typeSelect.addEventListener("change", ()=> {
 // If the user types in a name that exist then change the ID to the existing one, change the total amount to the current and change the button name to "Update Item"
 nameInput.addEventListener("change", ()=> {
 	allDataArray.forEach(obj => {
-		if(obj.name === nameInput.value) {
+		if(obj.name.toLowerCase() === nameInput.value.toLowerCase()) {
+			// Changing the input values to match the item the user typed in and making those inputs disabled
 			displayID.textContent = obj.id
+			manufacturerInput.value = obj.manufacturer
+			locationInput.value = obj.location
+			expirationInput.value = obj.expiration
+			typeInput.value = obj.typeInput
+			typeSelect.value = obj.typeSelect
+
+
 			submit.textContent = "Update Item"
 			itemNameToUpdate = obj.name
 			itemQuantityToUpdate = obj.quantity
 			updatePrompt.textContent = "This item already exists, do you wish to update it?"
+			typeInput.removeAttribute('disabled', '')
 			
 			
 
@@ -296,6 +317,8 @@ nameInput.addEventListener("change", ()=> {
 				totalInStockDisplay.textContent = obj.quantity
 			}
 			
+		} else {
+			Form.reset()
 		}
 	})
 })
