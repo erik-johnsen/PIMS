@@ -12,7 +12,7 @@ const expirationInput = document.getElementById('form_expiration')
 const locationInput = document.getElementById('form_location')
 const quantityInput = document.getElementById('form_amount-to-add')
 const totalInStockDisplay = document.getElementById('form_show-quantity')
-const displayID = document.getElementById('form_show-id')
+const displayID = document.querySelector('.form_show-id')
 const addOrRemoveSelect = document.getElementById('form_select-add-remove')
 
 const typeSelect = document.getElementById('form_type')
@@ -324,7 +324,7 @@ nameInput.addEventListener("change", ()=> {
 			}
 			
 		} else {
-			Form.reset()
+			// form.reset()
 		}
 	})
 })
@@ -342,6 +342,5 @@ openButton.addEventListener('click', () => {
 	addStorageWindow.style.display = "flex"
 	openButton.style.display = "none"
 	displayContainer.style.marginTop = "0"
-
 	Form.resetForm()
 })
