@@ -20,6 +20,8 @@ body {
 	margin-top: 3rem;
 }
 
+/* Form style */
+
 .add-storage {
 	position: relative;
 	display: none;
@@ -46,9 +48,28 @@ body {
 	width: 20rem;
 }
 
+#form_select-add-remove {
+	width: fit-content;
+	text-align: center;
+}
+
 .form-show-id {
 	width: fit-content;
 }
+
+h2 {
+	width: fit-content;
+}
+
+input {
+	width: 10rem;
+}
+
+select {
+	width: 10rem;
+}
+
+/* Display table */
 
 .form_delete-button {
 	padding: 0.3rem;
@@ -85,6 +106,7 @@ tr {
 	background-color: white;
 }
 
+
 /* putting border-radius on table rows element */
 
 td:first-child {
@@ -108,6 +130,8 @@ td:last-child {
 	width: 10rem;
 
 }
+
+/* Update and close buttons */
 
 .open-button, .close-button {
 	display: flex;
@@ -137,17 +161,7 @@ td:last-child {
 	font-style: italic;
 }
 
-h2 {
-	width: fit-content;
-}
-
-input {
-	width: 10rem;
-}
-
-select {
-	width: 10rem;
-}
+/* Error and prompts */
 
 .update-prompt {
 	position: absolute;

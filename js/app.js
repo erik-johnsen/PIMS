@@ -13,6 +13,7 @@ const locationInput = document.getElementById('form_location')
 const quantityInput = document.getElementById('form_amount-to-add')
 const totalInStockDisplay = document.getElementById('form_show-quantity')
 const displayID = document.getElementById('form_show-id')
+const addOrRemoveSelect = document.getElementById('form_select-add-remove')
 
 const typeSelect = document.getElementById('form_type')
 const typeInput = document.getElementById('form_dosage')
@@ -86,7 +87,12 @@ class Medicine {
 	static updateMedicine() {
 		const itemToUpdate = allDataArray.find(item => item.name === itemNameToUpdate)
 		if(itemToUpdate) {
-			itemToUpdate.quantity = (Number(itemQuantityToUpdate || 0)) + (Number(quantityInput.value) || 0)
+			if(addOrRemoveSelect.value === 'add') {
+				itemToUpdate.quantity = (Number(itemQuantityToUpdate || 0)) + (Number(quantityInput.value) || 0)
+			} else {
+				itemToUpdate.quantity = (Number(itemQuantityToUpdate || 0)) - (Number(quantityInput.value) || 0)
+			}
+			
 			itemToUpdate.manufacturer = manufacturerInput.value
 			itemToUpdate.location = locationInput.value
 			itemToUpdate.expiration = expirationInput.value
@@ -294,7 +300,7 @@ typeSelect.addEventListener("change", ()=> {
 nameInput.addEventListener("change", ()=> {
 	allDataArray.forEach(obj => {
 		if(obj.name.toLowerCase() === nameInput.value.toLowerCase()) {
-			// Changing the input values to match the item the user typed in and making those inputs disabled
+			// Changing the input values to match the item the user typed in 
 			displayID.textContent = obj.id
 			manufacturerInput.value = obj.manufacturer
 			locationInput.value = obj.location
