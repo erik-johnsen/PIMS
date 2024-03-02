@@ -28,7 +28,7 @@ body {
 	width: 100%;
 	height: fit-content;
 	padding: 3rem;
-	background-color: #C7C7A6;
+	background-color: #8EA8C3;
 }
 .form-container {
 	display: grid;
@@ -51,8 +51,10 @@ body {
 }
 
 .form_delete-button {
-	border: 1px solid black;
-	padding: 0.3rem 2rem;
+	padding: 0.3rem;
+	width: 100%;
+	color: white;
+	background-color: #59C9A5;
 }
 
 .display {
@@ -68,21 +70,36 @@ body {
 	border-spacing: 0 0.7rem;
 }
 
-#table-display th {
+th {
 	padding: 0.5rem 2rem;
 	color: white;
 	background-color: #59C9A5;
 	text-align: center;
 }
 
-#table-display tr {
+tr {
 	text-align: center;
-	border-radius: 5rem;
 }
 
 #tbody {
 	background-color: white;
 }
+
+/* putting border-radius on table rows element */
+
+td:first-child {
+	border-left-style: solid;
+	border-top-left-radius: 0.4rem;
+	border-bottom-left-radius: 0.4rem;
+	overflow: hidden;
+}
+
+td:last-child {
+	border-right-style: solid;
+	border-top-right-radius: 0.4rem;
+	border-bottom-right-radius: 0.4rem;
+}
+
 
 
 .submit-button {
@@ -104,7 +121,7 @@ body {
 	border-radius: 0.1rem;
 	background-color: #59C9A5;
 	color: white;
-	transition: all 200ms;
+	transition: all 100ms;
 }
 
 .close-button {
@@ -114,8 +131,8 @@ body {
 	top: 2rem;
 }
 
-.close-button:hover, .open-button:hover {
-	background-color: #474548;
+.close-button:hover, .open-button:hover, .form_delete-button:hover {
+	background-color: black;
 	transition: all 200ms;
 	font-style: italic;
 }

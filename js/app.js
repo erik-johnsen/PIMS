@@ -66,6 +66,7 @@ class Medicine {
 		//pushes the new ID to a different array in local storage so i can make sure that no identical IDs can exist
 		allRandomIDs.push(newID)
 		localStorage.setItem("AllIDs", JSON.stringify(allRandomIDs))
+
 		return newMedicine
 		
 	}
@@ -134,6 +135,7 @@ class UI {
 				const trContainer = document.createElement('tr')
 				
 				const xButton = document.createElement('button')
+				const tdButtonContainer = document.createElement('td')
 				const idContainer = document.createElement('td')
 				const nameContainer = document.createElement('td')
 				const manufacturerContainer = document.createElement('td')
@@ -141,9 +143,10 @@ class UI {
 				const locationContainer = document.createElement('td')
 				const dosageContainer = document.createElement('td')
 				const quantityContainer = document.createElement('td')
-			
+				
+				tdButtonContainer.appendChild(xButton)
 				tbody.appendChild(trContainer)
-				trContainer.append(xButton, idContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, dosageContainer, quantityContainer)
+				trContainer.append(tdButtonContainer, idContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, dosageContainer, quantityContainer)
 	
 				xButton.textContent = "X"
 				xButton.classList.add('form_delete-button')
@@ -162,7 +165,7 @@ class UI {
 				trContainer.dataset.id = element.id;
 
 				xButton.addEventListener('click', (e)=> {
-					const listID = 	e.currentTarget.parentElement.dataset.id;
+					const listID = 	e.currentTarget.parentElement.parentElement.dataset.id;
 					Medicine.deleteMedicine(listID, allDataArray)
 
 					UI.displayData(allDataArray)
