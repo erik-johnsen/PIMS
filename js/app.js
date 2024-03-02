@@ -1,5 +1,8 @@
 
+
+const viewPort = document.querySelector('body')
 // Form DOM
+const displayContainer = document.querySelector('.display')
 const displayTable = document.getElementById('table-display')
 const submit = document.querySelector('.submit-button')
 
@@ -14,6 +17,8 @@ const displayID = document.getElementById('form_show-id')
 const typeSelect = document.getElementById('form_type')
 const typeInput = document.getElementById('form_dosage')
 const typeInputLabel = document.querySelector('label[for="form_dosage"]')
+
+const formInputs = document.querySelectorAll('.form-input')
 
 const updatePrompt = document.querySelector('.update-prompt')
 
@@ -39,19 +44,6 @@ let allRandomIDs = JSON.parse(localStorage.getItem("AllIDs")) || []
 let itemNameToUpdate = ""
 let itemQuantityToUpdate = ""
 
-// Opening and closing the form window functionality
-
-closeButton.addEventListener('click', ()=> {
-	addStorageWindow.style.display = "none"
-	openButton.style.display = "flex"
-})
-
-openButton.addEventListener('click', () => {
-	addStorageWindow.style.display = "flex"
-	openButton.style.display = "none"
-
-	Form.resetForm()
-})
 
 // the medicine class
 
@@ -201,22 +193,50 @@ class Form {
 
 			// If name doesnt match then check if every field is filled out
 			if(!nameInput.value.trim() || !manufacturerInput.value.trim() || !expirationInput.value.trim() || locationInput.value === "Select a location" || !typeInput.value.trim()) {
-				console.log("fill it out!");
+				
+				const errorMessage = document.createElement('p')
+				errorMessage.classList.add('form-error-message')
+				errorMessage.textContent = "Every field must be filled out!"
+				viewPort.appendChild(errorMessage)
+
+				setTimeout(()=> {
+					errorMessage.remove()
+				}, 2000)
+				
+				// Gives a visual clue to the user on what field is not filled out 
+				formInputs.forEach(input => {
+					if(!input.checkValidity()) {
+						input.classList.add('missing-input-form')
+					} else {
+						input.classList.remove('missing-input-form')
+					}
+				})
 			} else {
+
+				const confirmationMessage = document.createElement('p')
+				confirmationMessage.classList.add('form-confirmation-message')
+				confirmationMessage.textContent = "Item added successfully!"
+				viewPort.appendChild(confirmationMessage)
+
+				setTimeout(()=> {
+					confirmationMessage.remove()
+				}, 2000)
+
 				// Here we add the new item to the allDataArray and update the localStorage with it
 				allDataArray.push(Medicine.addMedicine())
 				localStorage.setItem("medicine", JSON.stringify(allDataArray))
 				UI.displayData(allDataArray)
 		
 				Form.resetForm()
-				
 			}
-			} else {
-			// If the name matches then update the item with the new quantity
-			Medicine.handleQuantity()
-			UI.displayData(allDataArray)
-			Form.resetForm()
+
+		} else {
+		// If the name matches then update the item with the new quantity
+		Medicine.handleQuantity()
+		UI.displayData(allDataArray)
+		Form.resetForm()
 		}
+		
 	}
 
 	static numberInput(e) {
@@ -275,4 +295,21 @@ nameInput.addEventListener("change", ()=> {
 			
 		}
 	})
+})
+
+// Opening and closing the form window functionality
+
+closeButton.addEventListener('click', ()=> {
+	addStorageWindow.style.display = "none"
+	openButton.style.display = "flex"
+	displayContainer.style.marginTop = "5rem"
+
+})
+
+openButton.addEventListener('click', () => {
+	addStorageWindow.style.display = "flex"
+	openButton.style.display = "none"
+	displayContainer.style.marginTop = "0"
+
+	Form.resetForm()
 })

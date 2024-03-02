@@ -12,109 +12,111 @@
 <body>
 	<div class="window-container">
 
-		
-		<h1 class="title">Welcome to PIMS</h1>
+		<div class="main-content">
 
-		<button class="open-button">Add To Storage</button>
-		
+			<h1 class="title">Welcome to PIMS</h1>
 
-		<div class="page add-storage">
-			<button class="close-button">X</button>
-
-			<div>
-				<h2>Add or update the storage</h2>
-
-				<form class="form-container">
-					<div class="update-prompt"></div>
-					<div>
-						<div>ID</div>
-						<div id="form_show-id">00</div>
-					</div>
-					
-					<div>
-						<label for="form_name">Name</label>
-						<input id="form_name" type="text" required>
-					</div>
-
-					<div>
-						<label for="form_manufacturer">Manufacturer</label>
-						<input id="form_manufacturer" type="text" required>
-					</div>
-
-					<div>
-						<div>Total amount in stock</div>
-						<div id="form_show-quantity">00</div>
-					</div>	
-
+			<button class="open-button">Add To Storage</button>
 			
 
-					<div>
-						<label for="form_location">Location</label>
-						<select id="form_location">
-							<option selected disabled>Select a location</option>
-							<option value="Oslo">Oslo</option>
-							<option value="Stockholm">Stockholm</option>
-							<option value="Copenhagen">Copenhagen</option>
-							<option value="Helsinki">Helsinki</option>
-						</select>
-					</div>
+			<div class="page add-storage">
+				<button class="close-button">X</button>
 
-					<div>
-						<label for="form_amount-to-add">Amount To Add</label>
-						<input id="form_amount-to-add" type="text" required>
-					</div>
+				<div>
+					<h2>Add or update the storage</h2>
 
-					<div>
-						<label for="form_expiration">Expiration</label>
-						<input id="form_expiration" type="text" required placeholder="YYYY-MM-DD" maxlength="10">
-					</div>
-
-					<div>
-						<label for="form_type">Type</label>
-						<select id="form_type">
-							<option selected disabled>Select a type</option>
-							<option value="tablet">Tablet</option>
-							<option value="syrup">Syrup</option>
-						</select>
-					</div>
-
-					<div>
-						<label for="form_dosage">Dosage</label>
-						<input id="form_dosage" type="number" required disabled>
-					</div>
-
-					
-
-					<div>
-						<div></div>
-						<button class="submit-button">Add Item(s)</button>
-					</div>
+					<form class="form-container">
+						<div class="update-prompt"></div>
+						<div>
+							<div>ID</div>
+							<div id="form_show-id">00</div>
+						</div>
 						
-				</form>
+						<div>
+							<label for="form_name">Name</label>
+							<input id="form_name" class="form-input" type="text" required>
+						</div>
 
+						<div>
+							<label for="form_manufacturer">Manufacturer</label>
+							<input id="form_manufacturer" class="form-input" type="text" required>
+						</div>
+
+						<div>
+							<div>Total amount in stock</div>
+							<div id="form_show-quantity">00</div>
+						</div>	
+
+				
+
+						<div>
+							<label for="form_location">Location</label>
+							<select id="form_location" class="form-input" required>
+								<option selected disabled>Select a location</option>
+								<option value="Oslo">Oslo</option>
+								<option value="Stockholm">Stockholm</option>
+								<option value="Copenhagen">Copenhagen</option>
+								<option value="Helsinki">Helsinki</option>
+							</select>
+						</div>
+
+						<div>
+							<label for="form_amount-to-add">Amount To Add</label>
+							<input id="form_amount-to-add" class="form-input" type="text" required>
+						</div>
+
+						<div>
+							<label for="form_expiration">Expiration</label>
+							<input id="form_expiration" class="form-input" type="text" required placeholder="YYYY-MM-DD" maxlength="10">
+						</div>
+
+						<div>
+							<label for="form_type">Type</label>
+							<select id="form_type" class="form-input" required>
+								<option selected disabled>Select a type</option>
+								<option value="tablet">Tablet</option>
+								<option value="syrup">Syrup</option>
+							</select>
+						</div>
+
+						<div>
+							<label for="form_dosage">Dosage</label>
+							<input id="form_dosage" class="form-input" type="number" required disabled>
+						</div>
+
+						
+
+						<div>
+							<div></div>
+							<button class="submit-button">Add Item(s)</button>
+						</div>
+							
+					</form>
+
+				</div>
+				
 			</div>
 			
+			<div class="page display">
+				<table id="table-display">
+					<thead>
+						<tr>
+							<th>X</th>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Manufacturer</th>
+							<th>Expiration</th>
+							<th>Location</th>
+							<th>Dosage</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody id='tbody'></tbody>
+					
+				</table>
+			</div>
 		</div>
 		
-		<div class="page display">
-			<table id="table-display">
-				<thead>
-					<tr>
-						<th>X</th>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Manufacturer</th>
-						<th>Expiration</th>
-						<th>Location</th>
-						<th>Dosage</th>
-						<th>Quantity</th>
-					</tr>
-				</thead>
-				<tbody id='tbody'>
-				</tbody>
-				
-			</table>
-		</div>
 	</div>
 </body>
 </html>

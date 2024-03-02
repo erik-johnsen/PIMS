@@ -5,23 +5,30 @@ body {
 }
 
 .window-container {
+	width: 100%;
+	height: 100%;
 	position: relative;
-	width: fit-content;
-	height: fit-content;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
+	background-color: #465775;
+}
+
+.main-content {
+	position: relative;
+	width: 90%;
+	margin-top: 3rem;
 }
 
 .add-storage {
 	position: relative;
-	background-color: #A499BE;
 	display: none;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	height: fit-content;
 	padding: 3rem;
+	background-color: #C7C7A6;
 }
 .form-container {
 	display: grid;
@@ -48,21 +55,35 @@ body {
 	padding: 0.3rem 2rem;
 }
 
+.display {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 5rem;
+}
+
+#table-display {
+	width: 100%;
+	height: 100%;
+	border-spacing: 0 0.7rem;
+}
 
 #table-display th {
-	padding: 1rem 4rem;
+	padding: 0.5rem 2rem;
 	color: white;
-	background-color: #6E6A6F;
+	background-color: #59C9A5;
 	text-align: center;
 }
 
 #table-display tr {
 	text-align: center;
+	border-radius: 5rem;
 }
 
-.display {
-	width: fit-content;
+#tbody {
+	background-color: white;
 }
+
 
 .submit-button {
 	border: 1px solid black;
@@ -71,37 +92,32 @@ body {
 
 }
 
-.open-button {
+.open-button, .close-button {
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
+	height: 2.5rem;
+	width: 8.5rem;
 	right: 0;
 	top: 0;
-	width: fit-content;
-	height: fit-content;
-	padding: 0.5rem;
 	border-radius: 0.1rem;
-	background-color: #6E6A6F;
+	background-color: #59C9A5;
 	color: white;
 	transition: all 200ms;
 }
 
 .close-button {
-	position: absolute;
-	left: 2rem;
+	height: 2rem;
+	width: 2.1rem;
+	right: 2.1rem;
 	top: 2rem;
-	width: fit-content;
-	height: fit-content;
-	padding: 0.5rem;
-	border-radius: 0.1rem;
-	background-color: #6E6A6F;
-	color: white;
-	transition: all 200ms;
-
 }
 
 .close-button:hover, .open-button:hover {
 	background-color: #474548;
 	transition: all 200ms;
+	font-style: italic;
 }
 
 h2 {
@@ -120,6 +136,29 @@ select {
 	position: absolute;
 	top: 5rem;
 	right: 20rem;
+}
+
+.missing-input-form {
+	border: 2px solid red;
+	transition: all 50ms ease;
+}
+
+.form-error-message, .form-confirmation-message {
+	position: absolute;
+	top: 1rem;
+	left: 50%;
+	transform: translate(-50%);
+	display: flex;
+	width: fit-content;
+	text-align: center;
+	background-color: #B23A48;
+	padding: 1rem 3rem;
+	border-radius: 1rem;
+	font-size: 1.6rem;
+}
+
+.form-confirmation-message {
+	background-color: #399E5A;
 }
 /* LOGIC */
 
