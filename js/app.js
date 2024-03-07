@@ -141,25 +141,25 @@ class UI {
 				
 				const xButton = document.createElement('button')
 				const tdButtonContainer = document.createElement('td')
-				const idContainer = document.createElement('td')
 				const nameContainer = document.createElement('td')
 				const manufacturerContainer = document.createElement('td')
 				const expirationContainer = document.createElement('td')
 				const locationContainer = document.createElement('td')
+				const typeContainer = document.createElement('td')
 				const dosageContainer = document.createElement('td')
 				const quantityContainer = document.createElement('td')
 				
 				tdButtonContainer.appendChild(xButton)
 				tbody.appendChild(trContainer)
-				trContainer.append(tdButtonContainer, idContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, dosageContainer, quantityContainer)
+				trContainer.append(tdButtonContainer, nameContainer, manufacturerContainer, expirationContainer, locationContainer, typeContainer, dosageContainer, quantityContainer)
 	
 				xButton.textContent = "X"
 				xButton.classList.add('form_delete-button')
-				idContainer.textContent = element.id
 				nameContainer.textContent = element.name
 				manufacturerContainer.textContent = element.manufacturer
 				expirationContainer.textContent = element.expiration
 				locationContainer.textContent = element.location
+				typeContainer.textContent = element.typeSelect
 				if(element.typeSelect === "tablet") {
 					dosageContainer.textContent = `${element.typeInput} pill`
 				} else {

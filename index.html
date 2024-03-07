@@ -33,10 +33,6 @@
 
 					<form class="form-container">
 						<div class="update-prompt"></div>
-						<div>
-							<div>ID</div>
-							<div class="form_show-id">00</div>
-						</div>
 						
 						<div>
 							<label for="form_name">Name</label>
@@ -78,7 +74,7 @@
 
 						<div>
 							<label for="form_expiration">Expiration</label>
-							<input id="form_expiration" class="form-input" type="date" required placeholder="YYYY-MM-DD" maxlength="10">
+							<input id="form_expiration" class="form-input" type="date" required>
 						</div>
 
 						<div>
@@ -95,7 +91,10 @@
 							<input id="form_dosage" class="form-input" type="number" required disabled>
 						</div>
 
-						
+						<div>
+							<div>ID</div>
+							<div class="form_show-id">00</div>
+						</div>	
 
 						<div>
 							<div></div>
@@ -113,11 +112,11 @@
 					<thead>
 						<tr>
 							<th>Delete</th>
-							<th>ID</th>
 							<th>Name</th>
 							<th>Manufacturer</th>
 							<th>Expiration</th>
 							<th>Location</th>
+							<th>Type</th>
 							<th>Dosage</th>
 							<th>Quantity</th>
 						</tr>
