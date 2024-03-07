@@ -189,6 +189,7 @@ class Form {
 		totalInStockDisplay.textContent = "00"
 		typeInputLabel.textContent = "Dosage"
 		typeInput.setAttribute("disabled", "")
+		typeInput.classList.remove("missing-input-form")
 		submit.textContent = "Add Item(s)"
 		updatePrompt.textContent = ""
 
@@ -206,7 +207,7 @@ class Form {
 				
 				// Gives a visual clue to the user on what field is not filled out 
 				formInputs.forEach(input => {
-					if(!input.checkValidity()) {
+					if(!input.checkValidity() || input.value === "Select a type" || input.value === "Select a location") {
 						input.classList.add('missing-input-form')
 					} else {
 						input.classList.remove('missing-input-form')
@@ -261,10 +262,6 @@ class Form {
 window.addEventListener('DOMContentLoaded', ()=> {
 	UI.displayData(allDataArray)
 	
-})
-
-expirationInput.addEventListener('keydown', (e)=> {
-	Form.numberInput(e)
 })
 
 // Submit button that triggers validate form, and then continues to addMedicine and displayData
