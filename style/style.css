@@ -21,6 +21,11 @@ body {
 	margin-top: 3rem;
 }
 
+.title {
+	height: fit-content;
+	width: fit-content;
+}
+
 /* Form style */
 
 .add-storage {
@@ -138,11 +143,12 @@ td:last-child {
 	align-items: center;
 	justify-content: center;
 	position: absolute;
-	height: 2.5rem;
-	width: 8.5rem;
+	height: 2rem;
+	width: 8rem;
 	right: 0;
-	top: 0;
+	top: 0.5rem;
 	border-radius: 0.1rem;
+	font-size: 0.8rem;
 	background-color: #59C9A5;
 	color: white;
 	transition: all 100ms;

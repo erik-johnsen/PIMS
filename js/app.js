@@ -254,19 +254,6 @@ class Form {
 		}
 	}
 
-	static numberInput(e) {
-		setTimeout(() => {
-			if(e.key !== 'Backspace'){
-				if(expirationInput.value.length === 5 || expirationInput.value.length === 8) {
-					expirationInput.value = expirationInput.value.slice(0, -1) + "-" + expirationInput.value.slice(-1)
-				}
-			} else if((e.key === 'Backspace') && (expirationInput.value.length === 5 || expirationInput.value.length === 8)) {
-				
-				expirationInput.value = expirationInput.value.slice(0, -1)
-			}
-			
-		},0)
-	}
 }
 
 
