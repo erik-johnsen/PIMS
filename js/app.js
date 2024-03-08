@@ -243,16 +243,37 @@ class Form {
 			setTimeout(()=> {
 				errorMessage.remove()
 			}, 3000)
-		} else {
+		} else if(type === "confirmation") {
 			const confirmationMessage = document.createElement('p')
-				confirmationMessage.className = 'form-confirmation-message ' + 'fade-in-out'
-				confirmationMessage.textContent = "Item added successfully!"
-				viewPort.appendChild(confirmationMessage)
+			confirmationMessage.className = 'form-confirmation-message ' + 'fade-in-out'
+			confirmationMessage.textContent = "Item added successfully!"
+			viewPort.appendChild(confirmationMessage)
 
-				setTimeout(()=> {
-					confirmationMessage.remove()
-				}, 3000)
+			setTimeout(()=> {
+				confirmationMessage.remove()
+			}, 3000)
+		} else {
+			const errorMessage = document.createElement('p')
+			errorMessage.className = 'form-error-message ' + 'fade-in-out'
+			errorMessage.textContent = "Date must be valid!"
+			viewPort.appendChild(errorMessage)
+			expirationInput.classList.add("missing-input-form")
+
+			setTimeout(()=> {
+				errorMessage.remove()
+				expirationInput.classList.remove("missing-input-form")
+			}, 3000)
 		}
+	}
+	// TODO Flytt til submit instead
+	static checkValidDate() {
+		const inputDate = new Date(expirationInput.value)
+		const currentDate = new Date()
+
+		if(inputDate < currentDate) {
+			this.handlePopupMessage("DateError")
+		}
+		
 	}
 
 }
@@ -268,6 +289,11 @@ window.addEventListener('DOMContentLoaded', ()=> {
 submit.addEventListener('click', (e)=> {
 	e.preventDefault()
 	Form.validateForm()
+})
+
+
+expirationInput.addEventListener("focusout", ()=> {	
+	Form.checkValidDate()
 })
 
 // Eventlistener that handles if the label text content of the dosage inout depending on what the user chooses
